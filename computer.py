@@ -25,9 +25,12 @@ class Computer:
         self.operating_system = operating_system
         self.year_made = year_made
         self.price = price
-        pass # You'll remove this when you fill out your constructor
+        
 
     # What methods will you need?
+
+
+    
 def main():
     my_computer = Computer(
         "Mac Pro (Late 2013)",
@@ -35,6 +38,7 @@ def main():
         1024, 64,
         "macOS Big Sur", 2013, 1500
     )
-    print("Description:", my_computer.description)
+    print()
+
 
 main()
