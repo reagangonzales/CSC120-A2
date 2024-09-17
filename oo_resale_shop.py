@@ -6,107 +6,106 @@ class ResaleShop:
 
     # What attributes will it need?
     inventory: dict[int, Computer] = {}
-    itemID: int = 0
+    item_ID: int = 0
 
     # How will you set up your constructor?
     # Remember: in python, all constructors have the same name (__init__)
-    def __init__(self, inventory: list, itemID: int):
-        self.inventory = inventory
-        self.itemID = itemID
+    def __init__(self):
+        self.inventory: Dict[int, Computer] = {}
+        self.item_id = 0
 
     # What methods will you need?
+    # Buy method
     def buy(self, computer: Computer) -> int:
-        """
-        Adds a new computer to the inventory and returns the assigned item ID.
-        """
-        self.itemID += 1  # Increment itemID
-        self.inventory[self.itemID] = computer
-        return self.itemID
+        self.item_id += 1  # increment itemID
+        self.inventory[self.item_id] = computer
+        return self.item_id
 
+    # Update price method
     def update_price(self, item_id: int, new_price: int):
-        """
-        Updates the price of a computer in the inventory based on its ID.
-        """
         if item_id in self.inventory:
             self.inventory[item_id].price = new_price
         else:
             print(f"Item {item_id} not found. Cannot update price.")
 
+    # Sell method
     def sell(self, item_id: int):
-        """
-        Removes a computer from the inventory based on its item ID.
-        """
         if item_id in self.inventory:
             del self.inventory[item_id]
             print(f"Item {item_id} sold!")
         else:
             print(f"Item {item_id} not found. Please select another item to sell.")
 
+    # Print inventory method
     def print_inventory(self):
-        """
-        Prints details of all computers in the inventory.
-        """
         if self.inventory:
             for item_id, computer in self.inventory.items():
-                print(f'Item ID: {item_id} : {computer}')
+                print(f"Item ID: {item_id} : {computer}")
         else:
             print("No inventory to display.")
 
-    def refurbish(self, new_os: Optional[str] = None):
-        if self.year_made < 2000:
-            self.price = 0
-        elif self.year_made < 2012:
-            self.price = 250
-        elif self.year_made < 2018:
-            self.price = 550
-        else:
-            self.price = 1000
+    # Refurbish method
+    def refurbish(self, item_id: int, new_os: Optional[str] = None):
+        if item_id in self.inventory:
+            computer = self.inventory[item_id]
+            # Refurbish the computer based on its year
+            if computer.year_made < 2000:
+                computer.price = 0  # too old to sell, donation only
+            elif computer.year_made < 2012:
+                computer.price = 250  # heavily-discounted price on machines 10+ years old
+            elif computer.year_made < 2018:
+                computer.price = 550  # discounted price on machines 4-to-10 year old machines
+            else:
+                computer.price = 1000  # recent stuff
 
-        if new_os is not None:
-            self.operating_system = new_os
+            # Update operating system if provided
+            if new_os is not None:
+                computer.operating_system = new_os
+        else:
+            print(f"Item {item_id} not found. Please select another item to refurbish.")
+
 
 def main():
-    my_computer = Computer(
-        "Mac Pro (Late 2013)",
-        "3.5 GHc 6-Core Intel Xeon E5",
-        1024, 64,
-        "macOS Big Sur", 2013, 1500
-    )
-    # Create a new resale shop
-    shop = ResaleShop(my_computer, 1)
+    shop = ResaleShop()
 
-    # Create and add a computer to the shop
-    computer1 = Computer(
-        description="2019 MacBook Pro",
-        processor_type="Intel",
-        hard_drive_capacity=256,
-        memory=16,
-        operating_system="High Sierra",
-        year_made=2019,
-        price=1000
-    )
-    shop.buy(computer1)
-
-    # Create and add another computer to the shop
-    computer2 = Computer(
-        description="2015 Dell XPS 13",
-        processor_type="Intel",
-        hard_drive_capacity=512,
-        memory=8,
-        operating_system="Windows 10",
-        year_made=2015,
-        price=800
-    )
-    shop.buy(computer2)
-
-    # Print the current inventory
-    shop.print_inventory()
-
-    # Refurbish the first computer and update the OS
-    shop.refurbish(1, new_os="Ventura")
+    # Add computers to the shop's inventory
+    computer1 = shop.buy(Computer(description="2019 MacBook Pro", processor_type="Intel",
+                              hard_drive_capacity=256, memory=16, operating_system="High Sierra",
+                              year_made=2019, price=1000))
     
-    # Print the updated inventory
+    computer2 = shop.buy(Computer(description="2010 Dell XPS", processor_type="Intel",
+                              hard_drive_capacity=500, memory=8, operating_system="Windows 10",
+                              year_made=2010, price=600))
+
+    computer3 = shop.buy(Computer(description="2005 HP Pavilion", processor_type="AMD",
+                              hard_drive_capacity=250, memory=4, operating_system="Windows XP",
+                              year_made=2005, price=150))
+
+    # Print the inventory
+    print("Initial Inventory:")
     shop.print_inventory()
+    print()
+
+    # Update the price of computer 2
+    shop.update_price(item_id=computer2, new_price=500)
+
+    # Refurbish the third item
+    shop.refurbish(item_id=computer3, new_os="Linux")
+    shop.refurbish(item_id=computer1)
+    shop.refurbish(item_id=computer2)
+
+    # Print the inventory to see the updated prices and refurbishing
+    print("Inventory after updating price and refurbishing:")
+    shop.print_inventory()
+    print()
+
+    # Sell the first item
+    shop.sell(item_id=computer1)
+
+    # Print the inventory to see the changes after selling an item
+    print("Final Inventory:")
+    shop.print_inventory()
+
 
 main()
     

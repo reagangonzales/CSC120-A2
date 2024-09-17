@@ -28,8 +28,8 @@ class Computer:
         self.year_made = year_made
         self.price = price
         
-
     # What methods will you need?
+
     # Method to display computer's information
     def __str__(self) -> str:
         return (f"""Description: {self.description} 
@@ -40,22 +40,33 @@ OS: {self.operating_system}
 Year Made: {self.year_made}
 Price: ${self.price}""")
     
-    # Method to allow user to get the description of a computer
+    # Method to get the description of the computer
+    def get_description(self) -> str:
+        return self.description
 
-    # Method to allow user to get the processor of a computer
-    
-    # Method to allow user to view the HD capacity of a computer
+    # Method to get the processor type of the computer
+    def get_processor_type(self) -> str:
+        return self.processor_type
 
-    # Method to allow user to view memory of a computer
+    # Method to get the hard drive capacity of the computer
+    def get_hard_drive_capacity(self) -> int:
+        return self.hard_drive_capacity
 
-    # Method to allow user to view OS of a computer
+    # Method to get the memory of the computer
+    def get_memory(self) -> int:
+        return self.memory
 
-    # Method to allow user to view year made of computer
+    # Method to get the operating system of the computer
+    def get_operating_system(self) -> str:
+        return self.operating_system
 
-    # Method to allow user to view price of computer
+    # Method to get the year the computer was made
+    def get_year_made(self) -> int:
+        return self.year_made
 
-    # Method to allow user to update information
-    
+    # Method to get the price of the computer
+    def get_price(self) -> int:
+        return self.price   
 
 
 def main():
@@ -66,7 +77,15 @@ def main():
         1024, 64,
         "macOS Big Sur", 2013, 1500
     )
+    # Testing methods
     print(my_computer)
+    print(my_computer.get_description())
+    print(my_computer.get_hard_drive_capacity())
+    print(my_computer.get_memory())
+    print(my_computer.get_operating_system())
+    print(my_computer.get_price())
+    print(my_computer.get_processor_type())
+    print(my_computer.get_year_made())
     
 
 
