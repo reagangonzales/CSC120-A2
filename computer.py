@@ -31,14 +31,35 @@ class Computer:
 
     # What methods will you need?
     # Method to display computer's information
-    def __str__(self):
-        return (f"Description: {self.description}, Processor: {self.processor_type}, "
-                f"HD Capacity: {self.hard_drive_capacity}GB, Memory: {self.memory}GB "
-                f"OS: {self.operating_system}, Year Made: {self.year_made}, Price: ${self.price}")
+    def __str__(self) -> str:
+        return (f"""Description: {self.description} 
+Processor: {self.processor_type}
+HD Capacity: {self.hard_drive_capacity}GB 
+Memory: {self.memory}GB 
+OS: {self.operating_system} 
+Year Made: {self.year_made}
+Price: ${self.price}""")
+    
+    # Method to allow user to get the description of a computer
+
+    # Method to allow user to get the processor of a computer
+    
+    # Method to allow user to view the HD capacity of a computer
+
+    # Method to allow user to view memory of a computer
+
+    # Method to allow user to view OS of a computer
+
+    # Method to allow user to view year made of computer
+
+    # Method to allow user to view price of computer
+
+    # Method to allow user to update information
     
 
 
 def main():
+
     my_computer = Computer(
         "Mac Pro (Late 2013)",
         "3.5 GHc 6-Core Intel Xeon E5",
@@ -46,6 +67,7 @@ def main():
         "macOS Big Sur", 2013, 1500
     )
     print(my_computer)
+    
 
 
 main()

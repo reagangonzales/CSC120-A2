@@ -1,5 +1,7 @@
+# Useful containers from the typing module
 from computer import Computer
 from typing import Dict, Optional
+
 class ResaleShop:
 
     # What attributes will it need?
@@ -64,8 +66,14 @@ class ResaleShop:
             self.operating_system = new_os
 
 def main():
+    my_computer = Computer(
+        "Mac Pro (Late 2013)",
+        "3.5 GHc 6-Core Intel Xeon E5",
+        1024, 64,
+        "macOS Big Sur", 2013, 1500
+    )
     # Create a new resale shop
-    shop = ResaleShop()
+    shop = ResaleShop(my_computer, 1)
 
     # Create and add a computer to the shop
     computer1 = Computer(
