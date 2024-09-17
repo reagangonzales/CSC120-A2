@@ -1,25 +1,26 @@
-
 from computer import Computer
-
+from typing import Dict, Optional
 class ResaleShop:
 
     # What attributes will it need?
     inventory: dict[int, Computer] = {}
+    itemID: int = 0
 
     # How will you set up your constructor?
     # Remember: in python, all constructors have the same name (__init__)
-    def __init__(self, inventory: list):
+    def __init__(self, inventory: list, itemID: int):
         self.inventory = inventory
+        self.itemID = itemID
 
     # What methods will you need?
-    def buy(self, computer: Computer):
+    def buy(self, computer: Computer) -> int:
         """
         Adds a new computer to the inventory and returns the assigned item ID.
         """
-        self.itemID += 1  
+        self.itemID += 1  # Increment itemID
         self.inventory[self.itemID] = computer
         return self.itemID
-    
+
     def update_price(self, item_id: int, new_price: int):
         """
         Updates the price of a computer in the inventory based on its ID.
@@ -44,58 +45,60 @@ class ResaleShop:
         Prints details of all computers in the inventory.
         """
         if self.inventory:
-            for item_id in self.inventory:
-                print(f'Item ID: {item_id} : {self.description}')
+            for item_id, computer in self.inventory.items():
+                print(f'Item ID: {item_id} : {computer}')
         else:
             print("No inventory to display.")
-        
-    def refurbish(self, item_id: int, new_os: [str] = None):
-        """
-        Updates the price based on the age of the computer and optionally updates the OS.
-        """
+
+    def refurbish(self, new_os: Optional[str] = None):
         if self.year_made < 2000:
-            self.price = 0  
+            self.price = 0
         elif self.year_made < 2012:
-            self.price = 250  
+            self.price = 250
         elif self.year_made < 2018:
-            self.price = 550 
+            self.price = 550
         else:
-            self.price = 1000  
+            self.price = 1000
 
         if new_os is not None:
-            self.operating_system = new_os  # Update details after installing new OS
+            self.operating_system = new_os
 
-# Create our computers to get our two classes to interact
-c1 = Computer("2019 Macbook Pro",
-              "Intel", 256, 16,
-              "High Sierra", 2019, 1000)
-c2 = Computer("HP",
-              "OS", 256, 16,
-              "High Sierra", 2015, 2000)
-c3 = Computer("iPad",
-              "OS", 256, 16,
-              "High Sierra", 2000, 3000)
-
-def main():  
+def main():
     # Create a new resale shop
-    shop = ResaleShop([c1, c2])
+    shop = ResaleShop()
 
-    # Create a computer and add it to the shop
-    computer = Computer(description="2019 MacBook Pro", processor_type="Intel", 
-                        hard_drive_capacity=256, memory=16, 
-                        operating_system="High Sierra", year_made=2019, price=1000)
-    item_id = shop.buy(computer)
+    # Create and add a computer to the shop
+    computer1 = Computer(
+        description="2019 MacBook Pro",
+        processor_type="Intel",
+        hard_drive_capacity=256,
+        memory=16,
+        operating_system="High Sierra",
+        year_made=2019,
+        price=1000
+    )
+    shop.buy(computer1)
+
+    # Create and add another computer to the shop
+    computer2 = Computer(
+        description="2015 Dell XPS 13",
+        processor_type="Intel",
+        hard_drive_capacity=512,
+        memory=8,
+        operating_system="Windows 10",
+        year_made=2015,
+        price=800
+    )
+    shop.buy(computer2)
 
     # Print the current inventory
     shop.print_inventory()
 
-    # Refurbish the computer and update the OS
-    shop.refurbish(item_id, new_os="Ventura")
+    # Refurbish the first computer and update the OS
+    shop.refurbish(1, new_os="Ventura")
     
     # Print the updated inventory
     shop.print_inventory()
-          
+
 main()
     
-
-

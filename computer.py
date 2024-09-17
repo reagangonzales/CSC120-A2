@@ -1,3 +1,5 @@
+from typing import Dict, Optional
+
 class Computer:
 
     # What attributes will it need?
@@ -28,9 +30,14 @@ class Computer:
         
 
     # What methods will you need?
-
-
+    # Method to display computer's information
+    def __str__(self):
+        return (f"Description: {self.description}, Processor: {self.processor_type}, "
+                f"HD Capacity: {self.hard_drive_capacity}GB, Memory: {self.memory}GB "
+                f"OS: {self.operating_system}, Year Made: {self.year_made}, Price: ${self.price}")
     
+
+
 def main():
     my_computer = Computer(
         "Mac Pro (Late 2013)",
@@ -38,7 +45,7 @@ def main():
         1024, 64,
         "macOS Big Sur", 2013, 1500
     )
-    print()
+    print(my_computer)
 
 
 main()
