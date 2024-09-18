@@ -50,13 +50,13 @@ class ResaleShop:
             computer = self.inventory[item_id]
             # Refurbish the computer based on its year
             if computer.year_made < 2000:
-                computer.price = 0  # too old to sell, donation only
+                computer.price = 0  
             elif computer.year_made < 2012:
-                computer.price = 250  # heavily-discounted price on machines 10+ years old
+                computer.price = 250  
             elif computer.year_made < 2018:
-                computer.price = 550  # discounted price on machines 4-to-10 year old machines
+                computer.price = 550 
             else:
-                computer.price = 1000  # recent stuff
+                computer.price = 1000 
 
             # Update operating system if provided
             if new_os is not None:
@@ -89,7 +89,7 @@ def main():
     # Update the price of computer 2
     shop.update_price(item_id=computer2, new_price=500)
 
-    # Refurbish the third item
+    # Refurbish the computers
     shop.refurbish(item_id=computer3, new_os="Linux")
     shop.refurbish(item_id=computer1)
     shop.refurbish(item_id=computer2)
